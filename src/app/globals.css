@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  --background: #09090b;
+  --foreground: #fafafa;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #1c1917 0%, transparent 55%),
+    radial-gradient(900px 500px at 90% 0%, #18181b 0%, transparent 50%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+
+/* Ability schematic teaching animations */
+@keyframes schematic-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.7; }
+}
+@keyframes schematic-ring {
+  0% { transform-origin: center; transform: scale(0.85); opacity: 0.9; }
+  70% { transform: scale(1.05); opacity: 0.35; }
+  100% { transform: scale(0.85); opacity: 0.9; }
+}
+@keyframes schematic-projectile {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(170px, -55px); }
+}
+@keyframes schematic-dasher {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(150px, -55px); }
+}
+@keyframes schematic-trail {
+  0% { stroke-dashoffset: 220; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes schematic-hook {
+  0% { stroke-dashoffset: 280; }
+  55% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 280; }
+}
+@keyframes schematic-fuse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.95; }
+}
+@keyframes schematic-stack {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+@keyframes schematic-passive {
+  0%, 100% { stroke: #a1a1aa; }
+  50% { stroke: #fbbf24; }
+}
+
+.schematic-pulse { animation: schematic-pulse 1.8s ease-in-out infinite; }
+.schematic-ring { transform-box: fill-box; transform-origin: center; animation: schematic-ring 2.4s ease-in-out infinite; }
+.schematic-projectile { animation: schematic-projectile 1.6s ease-in-out infinite; }
+.schematic-dasher { animation: schematic-dasher 1.8s ease-in-out infinite; }
+.schematic-trail {
+  stroke-dasharray: 220;
+  animation: schematic-trail 1.8s linear infinite;
+}
+.schematic-hook {
+  stroke-dasharray: 280;
+  animation: schematic-hook 2.2s ease-in-out infinite;
+}
+.schematic-fuse { animation: schematic-fuse 1.2s ease-in-out infinite; }
+.schematic-stack { animation: schematic-stack 1.4s ease-in-out infinite; }
+.schematic-stack:nth-of-type(2) { animation-delay: 0.15s; }
+.schematic-stack:nth-of-type(3) { animation-delay: 0.3s; }
+.schematic-passive { animation: schematic-passive 2s ease-in-out infinite; }

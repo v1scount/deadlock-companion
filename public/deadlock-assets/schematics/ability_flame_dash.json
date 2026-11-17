@@ -1,0 +1,26 @@
+{
+  "ability_class_name": "ability_flame_dash",
+  "shape": "dash_trail",
+  "overrides": {
+    "range_m": 12,
+    "radius_m": 4.5,
+    "duration_s": 3
+  },
+  "api_property_keys": {
+    "range": "DashSpeed",
+    "radius": "FlameAuraRadius",
+    "duration": "AbilityDuration"
+  },
+  "beginner_hints": [
+    "Dash through the fight to leave a burning trail enemies must cross.",
+    "Great for closing gap after Napalm or escaping once you have ignited someone."
+  ],
+  "watch_for": [
+    "You still take damage while dashing \u2014 do not treat it as a full invuln.",
+    "Trail duration is limited; reposition so enemies walk through it, not around it."
+  ],
+  "threats": [
+    "dash",
+    "burn"
+  ]
+}

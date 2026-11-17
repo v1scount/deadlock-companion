@@ -1,0 +1,19 @@
+{
+  "ability_class_name": "ability_afterburn",
+  "shape": "passive",
+  "overrides": {},
+  "api_property_keys": {
+    "duration": "BurnDuration"
+  },
+  "beginner_hints": [
+    "Keep shooting the same target \u2014 weapon hits build a burn that finishes low-health foes.",
+    "Pair with Napalm: patch slows escape while Afterburn ticks."
+  ],
+  "watch_for": [
+    "No cast \u2014 if you swap targets too often the burn never peaks.",
+    "Spirit resist and cleanses cut the value; prioritize soft targets first."
+  ],
+  "threats": [
+    "burn"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "ability_class_name": "ability_incendiary_projectile",
+  "shape": "cone",
+  "overrides": {
+    "range_m": 20,
+    "width_m": 1,
+    "angle_deg": 28
+  },
+  "api_property_keys": {
+    "range": "AbilityCastRange",
+    "width": "InitialWidth"
+  },
+  "beginner_hints": [
+    "Aim at feet or choke points \u2014 Napalm paints a cone of fire, not a pinpoint hit.",
+    "Use it before committing with bullets so Afterburn stacks into the burn patch."
+  ],
+  "watch_for": [
+    "Cast delay is short but you are committed once it leaves \u2014 don't fire into empty space.",
+    "Enemies can walk out of the cone edges; lead them if they are sliding away."
+  ],
+  "threats": [
+    "slow",
+    "burn"
+  ]
+}

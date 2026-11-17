@@ -1,0 +1,19 @@
+{
+  "ability_class_name": "ability_stacking_damage",
+  "shape": "passive",
+  "overrides": {},
+  "api_property_keys": {
+    "duration": "AbilityDuration"
+  },
+  "beginner_hints": [
+    "Commit to one hero \u2014 Fixation rewards sustained fire, not target bouncing.",
+    "Sleep Dagger into Fixation is the core duel pattern."
+  ],
+  "watch_for": [
+    "Stacks fall off if you stop shooting; keep pressure after a sleep wakes.",
+    "Tanks with high bullet resist still take forever \u2014 pick softer carries."
+  ],
+  "threats": [
+    "damage_amp"
+  ]
+}

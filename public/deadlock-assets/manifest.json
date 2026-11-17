@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "root": "/deadlock-assets",
+  "layout": {
+    "portrait": "heroes/{hero_id}/portrait.webp",
+    "icon": "abilities/{ability_class_name}/icon.webp",
+    "clip": "abilities/{ability_class_name}/clip.webm",
+    "schematic": "schematics/{ability_class_name}.json"
+  },
+  "how_to_add_hero": [
+    "1. Pick hero_id from GET /v1/assets/heroes (or /v1/assets/heroes/{id}).",
+    "2. mkdir -p public/deadlock-assets/heroes/{id} public/deadlock-assets/abilities/<class_name>",
+    "3. Run: npm run assets:pull -- --hero {id}   (downloads portrait + ability icons).",
+    "4. For each signature ability, copy a schematic JSON from an existing shape and edit hints.",
+    "5. Append the hero block to this manifest (portrait + 4 abilities with icon/schematic paths).",
+    "6. Optional clips: npm run assets:pull-clips -- --hero {id} (or curl CDN videos/hero_abilities/*.webm).",
+    "Budget: under 15 minutes once you know the ability class_names."
+  ],
+  "heroes": {
+    "1": {
+      "id": 1,
+      "name": "Infernus",
+      "class_name": "hero_inferno",
+      "portrait": "heroes/1/portrait.webp",
+      "abilities": [
+        {
+          "class_name": "ability_incendiary_projectile",
+          "slot": "signature1",
+          "name": "Napalm",
+          "icon": "abilities/ability_incendiary_projectile/icon.webp",
+          "clip": "abilities/ability_incendiary_projectile/clip.webm",
+          "schematic": "schematics/ability_incendiary_projectile.json"
+        },
+        {
+          "class_name": "ability_flame_dash",
+          "slot": "signature2",
+          "name": "Flame Dash",
+          "icon": "abilities/ability_flame_dash/icon.webp",
+          "clip": "abilities/ability_flame_dash/clip.webm",
+          "schematic": "schematics/ability_flame_dash.json"
+        },
+        {
+          "class_name": "ability_afterburn",
+          "slot": "signature3",
+          "name": "Afterburn",
+          "icon": "abilities/ability_afterburn/icon.webp",
+          "clip": "abilities/ability_afterburn/clip.webm",
+          "schematic": "schematics/ability_afterburn.json"
+        },
+        {
+          "class_name": "ability_fire_bomb",
+          "slot": "signature4",
+          "name": "Concussive Combustion",
+          "icon": "abilities/ability_fire_bomb/icon.webp",
+          "clip": "abilities/ability_fire_bomb/clip.webm",
+          "schematic": "schematics/ability_fire_bomb.json"
+        }
+      ]
+    },
+    "13": {
+      "id": 13,
+      "name": "Haze",
+      "class_name": "hero_haze",
+      "portrait": "heroes/13/portrait.webp",
+      "abilities": [
+        {
+          "class_name": "ability_sleep_dagger",
+          "slot": "signature1",
+          "name": "Sleep Dagger",
+          "icon": "abilities/ability_sleep_dagger/icon.webp",
+          "clip": "abilities/ability_sleep_dagger/clip.webm",
+          "schematic": "schematics/ability_sleep_dagger.json"
+        },
+        {
+          "class_name": "ability_smoke_bomb",
+          "slot": "signature2",
+          "name": "Smoke Bomb",
+          "icon": "abilities/ability_smoke_bomb/icon.webp",
+          "clip": "abilities/ability_smoke_bomb/clip.webm",
+          "schematic": "schematics/ability_smoke_bomb.json"
+        },
+        {
+          "class_name": "ability_stacking_damage",
+          "slot": "signature3",
+          "name": "Fixation",
+          "icon": "abilities/ability_stacking_damage/icon.webp",
+          "clip": "abilities/ability_stacking_damage/clip.webm",
+          "schematic": "schematics/ability_stacking_damage.json"
+        },
+        {
+          "class_name": "ability_bullet_flurry",
+          "slot": "signature4",
+          "name": "Bullet Dance",
+          "icon": "abilities/ability_bullet_flurry/icon.webp",
+          "clip": "abilities/ability_bullet_flurry/clip.webm",
+          "schematic": "schematics/ability_bullet_flurry.json"
+        }
+      ]
+    }
+  }
+}

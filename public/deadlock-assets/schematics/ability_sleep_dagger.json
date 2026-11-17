@@ -1,0 +1,21 @@
+{
+  "ability_class_name": "ability_sleep_dagger",
+  "shape": "projectile",
+  "overrides": {
+    "range_m": 25
+  },
+  "api_property_keys": {
+    "duration": "SleepDuration"
+  },
+  "beginner_hints": [
+    "Skill-shot a priority target to remove them from the fight briefly.",
+    "Follow up with bullets once they wake \u2014 Fixation stacks land freely on a sleepy target."
+  ],
+  "watch_for": [
+    "Allied damage can wake them early \u2014 call the sleep before your team piles on.",
+    "Missed dagger is a long cooldown; wait for slides/dashes to finish."
+  ],
+  "threats": [
+    "sleep"
+  ]
+}

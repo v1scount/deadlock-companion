@@ -1,0 +1,23 @@
+{
+  "ability_class_name": "ability_bullet_flurry",
+  "shape": "circle",
+  "overrides": {
+    "radius_m": 16,
+    "duration_s": 3.5
+  },
+  "api_property_keys": {
+    "radius": "Radius",
+    "duration": "AbilityDuration"
+  },
+  "beginner_hints": [
+    "Walk into a pack and ult \u2014 Bullet Dance auto-fires nearby enemies with perfect accuracy.",
+    "Smoke first if you need to close the gap without getting focused."
+  ],
+  "watch_for": [
+    "You are still a soft body in the middle of the AOE \u2014 watch stuns and burst.",
+    "Radius is large but not infinite; chase stragglers with Smoke rather than ulting empty space."
+  ],
+  "threats": [
+    "damage_amp"
+  ]
+}

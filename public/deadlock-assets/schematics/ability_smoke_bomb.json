@@ -1,0 +1,23 @@
+{
+  "ability_class_name": "ability_smoke_bomb",
+  "shape": "circle",
+  "overrides": {
+    "radius_m": 18,
+    "duration_s": 8
+  },
+  "api_property_keys": {
+    "radius": "SpottedRadius",
+    "duration": "AbilityDuration"
+  },
+  "beginner_hints": [
+    "Pop smoke to disengage, flank, or set up a Sleep Dagger from an unexpected angle.",
+    "Use the sprint boost to reposition before you fire and break invis."
+  ],
+  "watch_for": [
+    "Enemies inside spotted radius can still reveal you \u2014 do not hug them while invisible.",
+    "Shooting ends invis; plan the first shot, don't panic-fire."
+  ],
+  "threats": [
+    "invis"
+  ]
+}
