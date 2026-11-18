@@ -19,6 +19,12 @@
 
 # production
 /build
+/dist
+
+# electron
+/*.exe
+/*.blockmap
+/*.yml
 
 # misc
 .DS_Store

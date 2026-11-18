@@ -1,6 +1,6 @@
-import { ProfileHome } from "@/components/ProfileHome";
+import { SearchHome } from "@/components/SearchHome";
 
-/** Profile home — stats owned by Home track; identity via AccountBinder. */
+/** Search is the front door. Player profiles live at /player/[accountId]. */
 export default function HomePage() {
-  return <ProfileHome />;
+  return <SearchHome />;
 }

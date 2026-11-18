@@ -155,25 +155,10 @@ async function resolveVanity(vanity: string): Promise<number> {
 }
 
 /**
- * Parse SteamID64 / account_id / profile URL (vanity via server proxy),
- * persist account_id, notify subscribers. Returns the saved account_id.
+ * Parse SteamID64 / account_id / profile URL (vanity via server proxy)
+ * without saving it. Player search uses this so a lookup is not a login.
  */
-export async function setAccountIdFromInput(raw: string): Promise<number> {
-  const parsed = parseSteamInput(raw);
-  if (!parsed.ok) {
-    throw new IdentityError(parsed.error);
-  }
-  if (isSteamParseVanity(parsed)) {
-    const accountId = await resolveVanity(parsed.vanity);
-    persistAccountId(accountId);
-    return accountId;
-  }
-  persistAccountId(parsed.accountId);
-  return parsed.accountId;
-}
-
-/** Same as setAccountIdFromInput but also returns parse source (for UI). */
-export async function setAccountIdFromInputDetailed(
+export async function lookupAccountIdFromInput(
   raw: string,
 ): Promise<SetAccountIdResult> {
   const parsed = parseSteamInput(raw);
@@ -182,11 +167,28 @@ export async function setAccountIdFromInputDetailed(
   }
   if (isSteamParseVanity(parsed)) {
     const accountId = await resolveVanity(parsed.vanity);
-    persistAccountId(accountId);
     return { accountId, source: parsed.source };
   }
-  persistAccountId(parsed.accountId);
   return { accountId: parsed.accountId, source: parsed.source };
+}
+
+/**
+ * Parse SteamID64 / account_id / profile URL (vanity via server proxy),
+ * persist account_id, notify subscribers. Returns the saved account_id.
+ */
+export async function setAccountIdFromInput(raw: string): Promise<number> {
+  const { accountId } = await lookupAccountIdFromInput(raw);
+  persistAccountId(accountId);
+  return accountId;
+}
+
+/** Same as setAccountIdFromInput but also returns parse source (for UI). */
+export async function setAccountIdFromInputDetailed(
+  raw: string,
+): Promise<SetAccountIdResult> {
+  const result = await lookupAccountIdFromInput(raw);
+  persistAccountId(result.accountId);
+  return result;
 }
 
 export function subscribeAccountId(listener: Listener): () => void {

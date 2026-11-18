@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Lilita_One, Nunito } from "next/font/google";
 
 import { IdentityProvider } from "@/components/identity-provider";
+import { LocalPulpFont } from "@/components/LocalPulpFont";
 import { SiteNav } from "@/components/SiteNav";
 
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+/** Poster stand-in. Valve Pulp is used only when this machine already has the game file. */
+const display = Lilita_One({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-lilita",
+});
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  variable: "--font-nunito",
 });
 
 const geistMono = Geist_Mono({
@@ -26,9 +34,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${display.variable} ${nunito.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
+        <LocalPulpFont />
         <IdentityProvider>
           <SiteNav />
           {children}
