@@ -8,12 +8,28 @@ import { LiveMatchCoachView } from "@/components/LiveMatchCoachView";
 import { deadlockApi } from "@/lib/deadlock-api";
 import type { ActiveMatch } from "@/types/deadlock";
 
-export function LiveMatchView() {
-  const { accountId, hydrated } = useIdentity();
+export function LiveMatchView({
+  focusAccountId = null,
+}: {
+  /** Player opened from a profile. Falls back to the saved account. */
+  focusAccountId?: number | null;
+}) {
+  const { accountId: savedAccountId, hydrated } = useIdentity();
+  const accountId = focusAccountId ?? savedAccountId;
   const [matches, setMatches] = useState<ActiveMatch[]>([]);
-  const [showApi, setShowApi] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [showApi, setShowApi] = useState(focusAccountId != null);
+  const [loading, setLoading] = useState(focusAccountId != null);
   const [error, setError] = useState<string | null>(null);
+  const waitingForIdentity = focusAccountId == null && !hydrated;
+  const requestKey = showApi && !waitingForIdentity ? String(accountId ?? "all") : "";
+  const [seenRequest, setSeenRequest] = useState(requestKey);
+  if (seenRequest !== requestKey) {
+    setSeenRequest(requestKey);
+    if (requestKey) {
+      setLoading(true);
+      setError(null);
+    }
+  }
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -30,9 +46,26 @@ export function LiveMatchView() {
   }, [accountId]);
 
   useEffect(() => {
-    if (!hydrated || !showApi) return;
-    void refresh();
-  }, [hydrated, showApi, refresh]);
+    if (!requestKey) return;
+    let cancelled = false;
+    void deadlockApi.getActiveMatches(accountId ?? undefined).then(
+      (data) => {
+        if (cancelled) return;
+        setMatches(data);
+        setError(null);
+        setLoading(false);
+      },
+      (err: unknown) => {
+        if (cancelled) return;
+        setMatches([]);
+        setError(err instanceof Error ? err.message : "Failed to load live matches");
+        setLoading(false);
+      },
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [requestKey, accountId]);
 
   return (
     <div className="flex min-h-[calc(100vh-3.5rem)] w-full flex-col gap-4 px-3 py-3 sm:px-4 lg:px-5">
@@ -81,7 +114,7 @@ export function LiveMatchView() {
             </button>
           </div>
 
-          {!hydrated || loading ? (
+          {waitingForIdentity || loading ? (
             <p className="text-sm text-zinc-400">Loading…</p>
           ) : error ? (
             <p className="text-sm text-red-400">{error}</p>

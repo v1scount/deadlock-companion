@@ -3,7 +3,12 @@
 /** SteamID3 / account_id used by deadlock-api. */
 export type AccountId = number;
 
-export type GameMode = "normal" | "street_brawl" | "explore_n_y_c" | "internal";
+export type GameMode =
+  | "normal"
+  | "street_brawl"
+  | "explore_n_y_c"
+  | "internal"
+  | "internal02";
 
 export interface SteamFriend {
   account_id: AccountId;
@@ -151,6 +156,12 @@ export interface ActiveMatch {
 export interface HeroImages {
   icon_hero_card?: string | null;
   icon_hero_card_webp?: string | null;
+  /** Hurt portrait used for a loss. */
+  hero_card_critical?: string | null;
+  hero_card_critical_webp?: string | null;
+  /** Celebrating portrait used for a win. */
+  hero_card_gloat?: string | null;
+  hero_card_gloat_webp?: string | null;
   icon_image_small?: string | null;
   icon_image_small_webp?: string | null;
   minimap_image?: string | null;
@@ -245,6 +256,50 @@ export interface Ability {
 export interface AssetRef {
   path: string;
   url?: string;
+}
+
+/** `GET /v1/analytics/hero-stats` row. Extra fields from the API are ignored. */
+export interface AnalyticsHeroStats {
+  hero_id: number;
+  wins: number;
+  losses: number;
+  matches: number;
+  total_kills: number;
+  total_deaths: number;
+  total_assists: number;
+  total_net_worth: number;
+  total_player_damage: number;
+}
+
+export interface AnalyticsHeroStatsQuery {
+  game_mode?: GameMode;
+  match_mode?: string;
+  min_unix_timestamp?: number;
+  max_unix_timestamp?: number;
+  min_average_badge?: number;
+  max_average_badge?: number;
+}
+
+/** `GET /v1/players/{account_id}/rank` */
+export interface PlayerRank {
+  /** `tier * 10 + subrank`. `0` when no recent ranked match reports a rank. */
+  badge: number;
+  rank: number;
+  subrank: number;
+}
+
+/** `GET /v1/assets/ranks` */
+export interface RankAsset {
+  tier: number;
+  name: string;
+  color?: string;
+  images: {
+    large?: string | null;
+    large_webp?: string | null;
+    small?: string | null;
+    small_webp?: string | null;
+    [key: string]: string | null | undefined;
+  };
 }
 
 export interface HeroStatsQuery {

@@ -2,6 +2,8 @@
   "name": "deadlock-companion",
   "version": "0.1.0",
   "private": true,
+  "description": "Deadlock companion — profile, live match, hero ability visuals",
+  "main": "electron/main.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,7 +11,8 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "assets:pull": "node scripts/pull-ability-icons.mjs",
-    "assets:pull-clips": "node scripts/pull-ability-clips.mjs"
+    "assets:pull-clips": "node scripts/pull-ability-clips.mjs",
+    "electron:dist": "next build && electron-builder --win"
   },
   "dependencies": {
     "next": "16.4.6",
@@ -21,10 +24,62 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "electron": "^45.3.4",
+    "electron-builder": "^26.18.0",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
     "tailwindcss": "4.3.3",
     "typescript": "^5"
   },
-  "description": "Deadlock companion \u2014 profile, live match, hero ability visuals"
+  "build": {
+    "appId": "com.deadlock.companion",
+    "productName": "Deadlock Companion",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": ".next/standalone",
+        "to": "standalone",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": ".next/static",
+        "to": "standalone/.next/static",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "public",
+        "to": "standalone/public",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Deadlock Companion"
+    }
+  }
 }

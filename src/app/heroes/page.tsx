@@ -8,7 +8,7 @@ export default function HeroesPage() {
       <div>
         <p className="text-sm text-zinc-500">
           <Link href="/" className="underline-offset-4 hover:underline">
-            ← Profile
+            ← Search
           </Link>
         </p>
         <h1 className="mt-2 text-2xl font-semibold text-zinc-50">Heroes</h1>

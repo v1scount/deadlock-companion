@@ -13,11 +13,15 @@ import type {
   EnemyStatsEntry,
   EnemyStatsQuery,
   Hero,
+  AnalyticsHeroStats,
+  AnalyticsHeroStatsQuery,
   HeroStats,
   HeroStatsEntry,
   HeroStatsQuery,
   MatchHistoryEntry,
   PlayerMatchHistoryEntry,
+  PlayerRank,
+  RankAsset,
   SteamProfile,
 } from "@/types/deadlock";
 
@@ -120,6 +124,43 @@ export async function fetchHeroStats(
       max_average_badge: query.max_average_badge,
       min_match_id: query.min_match_id,
       max_match_id: query.max_match_id,
+    })}`,
+  );
+}
+
+export async function fetchAnalyticsHeroStats(
+  query: AnalyticsHeroStatsQuery = {},
+): Promise<AnalyticsHeroStats[]> {
+  return apiGet<AnalyticsHeroStats[]>(
+    `/v1/analytics/hero-stats${buildQuery({
+      game_mode: query.game_mode,
+      match_mode: query.match_mode,
+      min_unix_timestamp: query.min_unix_timestamp,
+      max_unix_timestamp: query.max_unix_timestamp,
+      min_average_badge: query.min_average_badge,
+      max_average_badge: query.max_average_badge,
+    })}`,
+  );
+}
+
+export async function fetchPlayerRank(accountId: AccountId): Promise<PlayerRank> {
+  return apiGet<PlayerRank>(`/v1/players/${accountId}/rank`);
+}
+
+export async function fetchRankAssets(): Promise<RankAsset[]> {
+  return apiGet<RankAsset[]>("/v1/assets/ranks");
+}
+
+export async function searchSteamProfiles(
+  searchQuery: string,
+  limit = 8,
+): Promise<SteamProfile[]> {
+  const q = searchQuery.trim();
+  if (!q) return [];
+  return apiGet<SteamProfile[]>(
+    `/v1/players/steam-search${buildQuery({
+      search_query: q,
+      limit,
     })}`,
   );
 }
@@ -242,6 +283,10 @@ export interface DeadlockApiMocks {
   steamProfile?: typeof fetchSteamProfile;
   matchHistory?: typeof fetchMatchHistory;
   heroStats?: typeof fetchHeroStats;
+  analyticsHeroStats?: typeof fetchAnalyticsHeroStats;
+  playerRank?: typeof fetchPlayerRank;
+  rankAssets?: typeof fetchRankAssets;
+  steamSearch?: typeof searchSteamProfiles;
   enemyStats?: typeof fetchEnemyStats;
   activeMatches?: typeof fetchActiveMatches;
   heroById?: typeof fetchHeroById;
@@ -260,6 +305,10 @@ export function createDeadlockApi(options?: {
     getSteamProfiles: fetchSteamProfiles,
     getMatchHistory: m.matchHistory ?? fetchMatchHistory,
     getHeroStats: m.heroStats ?? fetchHeroStats,
+    getAnalyticsHeroStats: m.analyticsHeroStats ?? fetchAnalyticsHeroStats,
+    getPlayerRank: m.playerRank ?? fetchPlayerRank,
+    getRankAssets: m.rankAssets ?? fetchRankAssets,
+    searchSteamProfiles: m.steamSearch ?? searchSteamProfiles,
     getEnemyStats: m.enemyStats ?? fetchEnemyStats,
     getActiveMatches: m.activeMatches ?? fetchActiveMatches,
     getActiveMatch: fetchActiveMatch,
@@ -276,6 +325,10 @@ export const deadlockApi = {
   getSteamProfiles: fetchSteamProfiles,
   getMatchHistory: fetchMatchHistory,
   getHeroStats: fetchHeroStats,
+  getAnalyticsHeroStats: fetchAnalyticsHeroStats,
+  getPlayerRank: fetchPlayerRank,
+  getRankAssets: fetchRankAssets,
+  searchSteamProfiles: searchSteamProfiles,
   getEnemyStats: fetchEnemyStats,
   getActiveMatches: fetchActiveMatches,
   getActiveMatch: fetchActiveMatch,
